@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Contact Loopwise — talk to us</title>
+<meta name="description" content="Reach Loopwise on Instagram, WhatsApp, or email — pick a channel and we'll pick up the conversation there.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 60'%3E%3Cpath d='M 24 12 A 18 18 0 1 1 12 24' fill='none' stroke='%231f9d80' stroke-width='6' stroke-linecap='round'/%3E%3Cpath d='M 36 48 A 18 18 0 1 1 48 36' fill='none' stroke='%233b6fd4' stroke-width='6' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    box-sizing: border-box;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+
+    --navy: #10171d;
+    --navy-2: #161f27;
+    --paper: #f6f7f5;
+    --paper-2: #eef1ee;
+    --ink: #151a1e;
+    --ink-soft: #5c6670;
+    --line: #dfe3e0;
+    --line-dark: rgba(255,255,255,0.12);
+    --green: #1f9d80;
+    --green-bright: #46d6b0;
+    --blue: #3b6fd4;
+    --blue-bright: #6e9cf6;
+    --pink: #d94f8c;
+    --white: #f5f6f4;
+  }
+  html { scroll-padding-top: env(safe-area-inset-top, 0px); }
+  *, *::before, *::after { box-sizing: inherit; }
+  body {
+    margin: 0;
+    background: var(--navy);
+    color: var(--white);
+    font-family: 'Inter', system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    min-height: 100%;
+    overflow-x: hidden;
+  }
+  h1, h2, .brand-word { font-family: 'Poppins', 'Inter', system-ui, sans-serif; font-weight: 600; line-height: 1.15; margin: 0; letter-spacing: -0.01em; }
+  p { margin: 0; }
+  a { color: inherit; }
+  .wrap { max-width: 1120px; margin: 0 auto; padding: 0 28px; }
+
+  nav { padding-top: env(safe-area-inset-top, 0px); border-bottom: 1px solid var(--line-dark); }
+  .nav-row { display: flex; align-items: center; justify-content: space-between; padding: 16px 28px; max-width: 1120px; margin: 0 auto; }
+  .brand { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+  .brand-word { font-size: 19px; color: var(--white); }
+  .back-link { font-size: 15px; color: #a9b4bd; text-decoration: none; }
+  .back-link:hover { color: var(--white); }
+  a:focus-visible, button:focus-visible { outline: 2px solid var(--blue-bright); outline-offset: 3px; }
+
+  main { padding: 72px 0 96px; }
+  .intro { max-width: 52ch; margin: 0 auto 52px; text-align: center; }
+  .eyebrow-line { display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 20px; }
+  .eyebrow-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--green-bright); }
+  .eyebrow-text { font-size: 14px; color: #a9b4bd; }
+  .intro h1 { font-size: clamp(30px, 4.6vw, 42px); color: var(--white); }
+  .intro p { margin-top: 16px; font-size: 17px; line-height: 1.6; color: #b7c0c8; }
+
+  .channels { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; max-width: 920px; margin: 0 auto; }
+  @media (max-width: 780px) { .channels { grid-template-columns: 1fr; } }
+
+  .channel {
+    display: flex; flex-direction: column; gap: 16px;
+    background: var(--navy-2); border: 1px solid var(--line-dark); border-radius: 16px;
+    padding: 30px 26px; text-decoration: none; color: var(--white);
+    transition: border-color .15s ease, transform .15s ease;
+  }
+  .channel:hover { border-color: var(--channel-accent, var(--green-bright)); transform: translateY(-2px); }
+  .channel-icon {
+    width: 46px; height: 46px; border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    background: color-mix(in srgb, var(--channel-accent, var(--green-bright)) 16%, transparent);
+  }
+  .channel-icon svg { width: 22px; height: 22px; }
+  .channel h2 { font-size: 18px; }
+  .channel .handle { font-size: 14.5px; color: #a9b4bd; }
+  .channel .go {
+    margin-top: auto; font-size: 14px; font-weight: 500;
+    color: var(--channel-accent, var(--green-bright));
+    display: flex; align-items: center; gap: 6px;
+  }
+  .channel .go svg { width: 14px; height: 14px; }
+
+  .note { max-width: 52ch; margin: 44px auto 0; text-align: center; font-size: 14px; color: #7d8891; }
+
+  footer { border-top: 1px solid var(--line-dark); padding: 34px 0; }
+  .footer-copy { font-size: 13px; color: #5c6670; text-align: center; }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-row">
+    <a class="brand" href="index.html">
+      <svg width="28" height="28" viewBox="0 0 60 60" aria-hidden="true">
+        <path d="M 24 12 A 18 18 0 1 1 12 24" fill="none" stroke="#1f9d80" stroke-width="6" stroke-linecap="round"/>
+        <path d="M 36 48 A 18 18 0 1 1 48 36" fill="none" stroke="#3b6fd4" stroke-width="6" stroke-linecap="round"/>
+        <path d="M 17 9 L 27 12 L 20 20 Z" fill="#1f9d80"/>
+        <path d="M 43 51 L 33 48 L 40 40 Z" fill="#3b6fd4"/>
+      </svg>
+      <span class="brand-word">Loopwise</span>
+    </a>
+    <a class="back-link" href="index.html">&larr; Back to site</a>
+  </div>
+</nav>
+
+<main>
+  <div class="wrap">
+    <div class="intro">
+      <div class="eyebrow-line"><span class="eyebrow-dot"></span><span class="eyebrow-text">Let's talk</span></div>
+      <h1 id="introHeading">Pick a channel — we'll take it from there.</h1>
+      <p>Whichever you tap, you'll be sent straight there to start the conversation. No forms, no waiting.</p>
+    </div>
+
+    <div class="channels">
+      <a class="channel" style="--channel-accent:#d94f8c" href="https://instagram.com/loopwise.lb" target="_blank" rel="noopener">
+        <div class="channel-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#d94f8c" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1.1" fill="#d94f8c" stroke="none"/></svg>
+        </div>
+        <div>
+          <h2>Instagram</h2>
+          <div class="handle">@loopwise.lb</div>
+        </div>
+        <div class="go">Open Instagram <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 7 h10 M8 3 l4 4 -4 4"/></svg></div>
+      </a>
+
+      <a class="channel" style="--channel-accent:#46d6b0" href="https://wa.me/96176680568?text=Hi%20Loopwise%2C%20I%27d%20like%20to%20talk%20about%20automating%20my%20business." target="_blank" rel="noopener">
+        <div class="channel-icon">
+          <svg viewBox="0 0 24 24" fill="#46d6b0" stroke="none"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5.1-1.3A10 10 0 1 0 12 2Zm0 18.1a8.1 8.1 0 0 1-4.1-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8.1 8.1 0 1 1 12 20.1Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1-.2.2-.7.8-.8.9-.2.2-.3.2-.5.1-.2-.1-1-.4-1.9-1.2-.7-.6-1.2-1.4-1.3-1.6-.1-.2 0-.4.1-.5l.4-.5c.1-.1.2-.2.2-.4.1-.1 0-.3 0-.4s-.6-1.5-.8-2c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.4.1-.6.3-.2.2-.8.8-.8 1.9s.8 2.2 1 2.4c.1.1 1.6 2.5 3.9 3.5.5.2 1 .4 1.3.5.5.2 1 .1 1.4.1.4-.1 1.3-.5 1.5-1 .2-.5.2-.9.1-1Z"/></svg>
+        </div>
+        <div>
+          <h2>WhatsApp</h2>
+          <div class="handle">+961 76 680 568</div>
+        </div>
+        <div class="go">Open WhatsApp <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 7 h10 M8 3 l4 4 -4 4"/></svg></div>
+      </a>
+
+      <a class="channel" style="--channel-accent:#6e9cf6" href="mailto:Loopwise.lb@gmail.com?subject=Let%27s%20talk%20automation&body=Hi%20Loopwise%20team%2C%0A%0A">
+        <div class="channel-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#6e9cf6" stroke-width="1.8"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="M4 7 l8 6 8-6"/></svg>
+        </div>
+        <div>
+          <h2>Email</h2>
+          <div class="handle">Loopwise.lb@gmail.com</div>
+        </div>
+        <div class="go">Open email <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 7 h10 M8 3 l4 4 -4 4"/></svg></div>
+      </a>
+    </div>
+
+    <p class="note">Prefer a specific channel? They all reach the same team — reply time is usually within a day.</p>
+  </div>
+</main>
+
+<footer>
+  <div class="footer-copy">© <span id="year"></span> Loopwise. AI systems for businesses that want their time back.</div>
+</footer>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+  const params = new URLSearchParams(window.location.search);
+  const name = (params.get('name') || '').trim();
+  if (name) {
+    document.getElementById('introHeading').textContent = `Thanks, ${name} — pick a channel and let's talk.`;
+  }
+</script>
+
+</body>
+</html>
