@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Loopwise — AI automation systems for businesses</title>
+<meta name="description" content="Loopwise builds custom AI automation systems that handle customer response, lead follow-up, and internal operations — so your team spends time on what actually needs a person.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 60'%3E%3Cpath d='M 24 12 A 18 18 0 1 1 12 24' fill='none' stroke='%231f9d80' stroke-width='6' stroke-linecap='round'/%3E%3Cpath d='M 36 48 A 18 18 0 1 1 48 36' fill='none' stroke='%233b6fd4' stroke-width='6' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    box-sizing: border-box;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+
+    --navy: #10171d;
+    --navy-2: #161f27;
+    --paper: #f6f7f5;
+    --paper-2: #eef1ee;
+    --ink: #151a1e;
+    --ink-soft: #5c6670;
+    --line: #dfe3e0;
+    --line-dark: rgba(255,255,255,0.12);
+    --green: #1f9d80;
+    --green-bright: #46d6b0;
+    --blue: #3b6fd4;
+    --blue-bright: #6e9cf6;
+    --white: #f5f6f4;
+  }
+  html { scroll-padding-top: env(safe-area-inset-top, 0px); scroll-behavior: smooth; }
+  *, *::before, *::after { box-sizing: inherit; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Inter', system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  h1, h2, h3, .brand-word {
+    font-family: 'Poppins', 'Inter', system-ui, sans-serif;
+    font-weight: 600;
+    line-height: 1.12;
+    margin: 0;
+    letter-spacing: -0.01em;
+  }
+  p { margin: 0; }
+  a { color: inherit; }
+  img, svg { max-width: 100%; }
+  .wrap { max-width: 1120px; margin: 0 auto; padding: 0 28px; }
+  .container-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+
+  /* ---------- nav ---------- */
+  nav {
+    position: sticky; top: 0; z-index: 40;
+    padding-top: env(safe-area-inset-top, 0px);
+    background: rgba(246,247,245,0.86);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--line);
+  }
+  .nav-row {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 16px 28px;
+    max-width: 1120px; margin: 0 auto;
+  }
+  .brand { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+  .brand-word { font-size: 19px; color: var(--ink); }
+  .nav-links { display: flex; align-items: center; gap: 30px; font-size: 15px; color: var(--ink-soft); }
+  .nav-links a { text-decoration: none; transition: color .15s ease; }
+  .nav-links a:hover { color: var(--ink); }
+  .nav-links a:focus-visible, a:focus-visible, button:focus-visible { outline: 2px solid var(--blue); outline-offset: 3px; }
+  .nav-cta {
+    background: var(--ink); color: var(--white); padding: 10px 20px; border-radius: 8px;
+    font-size: 14px; font-weight: 500; text-decoration: none; white-space: nowrap;
+  }
+  @media (max-width: 720px) { .nav-links { display: none; } }
+
+  /* ---------- hero ---------- */
+  .hero {
+    background: var(--navy);
+    color: var(--white);
+    position: relative;
+    overflow: hidden;
+    padding: 84px 0 96px;
+  }
+  .hero::before {
+    content: "";
+    position: absolute; inset: 0;
+    background-image: radial-gradient(rgba(255,255,255,0.055) 1px, transparent 1px);
+    background-size: 26px 26px;
+    pointer-events: none;
+  }
+  .hero-grid {
+    position: relative;
+    display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 56px; align-items: center;
+  }
+  @media (max-width: 860px) { .hero-grid { grid-template-columns: 1fr; } .hero-visual { order: -1; } }
+  .eyebrow-line { display: flex; align-items: center; gap: 10px; margin-bottom: 22px; }
+  .eyebrow-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--green-bright); flex: none; }
+  .eyebrow-text { font-size: 14px; color: #a9b4bd; font-family: 'Inter'; }
+  .hero h1 { font-size: clamp(34px, 5.4vw, 58px); color: var(--white); max-width: 13ch; }
+  .hero-sub { margin-top: 22px; font-size: 18px; line-height: 1.55; color: #b7c0c8; max-width: 46ch; }
+  .hero-ctas { display: flex; gap: 14px; margin-top: 34px; flex-wrap: wrap; }
+  .btn-primary, .btn-ghost {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 14px 24px; border-radius: 8px; font-size: 15px; font-weight: 500;
+    text-decoration: none; border: 1px solid transparent; cursor: pointer;
+    font-family: 'Inter';
+  }
+  .btn-primary { background: var(--green-bright); color: #0a1310; }
+  .btn-primary:hover { background: #5fe0bd; }
+  .btn-ghost { background: transparent; color: var(--white); border-color: rgba(255,255,255,0.28); }
+  .btn-ghost:hover { border-color: rgba(255,255,255,0.55); }
+
+  .hero-visual { display: flex; justify-content: center; }
+  .loop-mark { width: min(280px, 70vw); height: auto; }
+  .logo-video { width: min(260px, 62vw); height: auto; display: block; }
+
+  /* ---------- section shells ---------- */
+  section { padding: 88px 0; }
+  .section-head { max-width: 58ch; margin-bottom: 48px; }
+  .section-label { font-size: 14px; color: var(--green); font-weight: 500; margin-bottom: 10px; font-family: 'Inter'; }
+  .section-head h2 { font-size: clamp(26px, 3.6vw, 36px); color: var(--ink); }
+  .section-head p { margin-top: 14px; font-size: 16.5px; color: var(--ink-soft); line-height: 1.6; }
+
+  /* ---------- problem / solution ---------- */
+  .compare { display: grid; grid-template-columns: 1fr 1fr; gap: 0; border: 1px solid var(--line); border-radius: 14px; overflow: hidden; }
+  @media (max-width: 760px) { .compare { grid-template-columns: 1fr; } }
+  .compare-col { padding: 34px 32px; }
+  .compare-col.before { background: var(--paper-2); }
+  .compare-col.after { background: var(--navy); color: var(--white); }
+  .compare-title { font-size: 13px; font-weight: 600; letter-spacing: 0.02em; margin-bottom: 22px; font-family: 'Inter'; }
+  .compare-col.before .compare-title { color: #9a3f3f; }
+  .compare-col.after .compare-title { color: var(--green-bright); }
+  .compare-item { display: flex; gap: 12px; padding: 13px 0; border-top: 1px solid var(--line); font-size: 15.5px; }
+  .compare-col.before .compare-item:first-of-type { border-top: none; }
+  .compare-col.after .compare-item { border-top: 1px solid var(--line-dark); }
+  .compare-col.after .compare-item:first-of-type { border-top: none; }
+  .compare-icon { flex: none; width: 18px; height: 18px; margin-top: 2px; }
+
+  /* ---------- services ---------- */
+  .services { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 14px; overflow: hidden; }
+  @media (max-width: 860px) { .services { grid-template-columns: 1fr; } }
+  .service { background: var(--paper); padding: 34px 30px; }
+  .service-icon { width: 40px; height: 40px; margin-bottom: 22px; }
+  .service h3 { font-size: 19px; margin-bottom: 10px; }
+  .service p { font-size: 15px; color: var(--ink-soft); line-height: 1.6; }
+
+  /* ---------- process ---------- */
+  .process { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; }
+  @media (max-width: 860px) { .process { grid-template-columns: 1fr; gap: 34px; } }
+  .process-step { position: relative; padding-left: 44px; }
+  .process-num {
+    position: absolute; left: 0; top: 0;
+    width: 28px; height: 28px; border-radius: 50%;
+    background: var(--ink); color: var(--white);
+    font-size: 13px; font-weight: 600; font-family: 'Poppins';
+    display: flex; align-items: center; justify-content: center;
+  }
+  .process-step h3 { font-size: 17.5px; margin-bottom: 8px; }
+  .process-step p { font-size: 15px; color: var(--ink-soft); line-height: 1.6; }
+
+  /* ---------- audit tool ---------- */
+  .audit-section { background: var(--navy); color: var(--white); }
+  .audit-section .section-label { color: var(--green-bright); }
+  .audit-section .section-head h2 { color: var(--white); }
+  .audit-section .section-head p { color: #b7c0c8; }
+  .audit-panel {
+    background: var(--navy-2);
+    border: 1px solid var(--line-dark);
+    border-radius: 16px;
+    padding: 34px;
+  }
+  @media (max-width: 640px) { .audit-panel { padding: 22px; } }
+  .audit-form label { display: block; font-size: 14px; color: #a9b4bd; margin-bottom: 10px; font-family: 'Inter'; }
+  .lead-input {
+    width: 100%;
+    background: #0d1319; color: var(--white);
+    border: 1px solid var(--line-dark); border-radius: 10px;
+    padding: 14px 16px; font-family: 'Inter'; font-size: 15.5px;
+    margin-bottom: 18px;
+  }
+  .lead-input:focus-visible { outline: 2px solid var(--blue-bright); outline-offset: 2px; }
+  .lead-input::placeholder { color: #6a7580; }
+  .audit-cta { margin-top: 18px; }
+  .audit-form textarea {
+    width: 100%; min-height: 120px; resize: vertical;
+    background: #0d1319; color: var(--white);
+    border: 1px solid var(--line-dark); border-radius: 10px;
+    padding: 16px; font-family: 'Inter'; font-size: 15.5px; line-height: 1.55;
+  }
+  .audit-form textarea:focus-visible { outline: 2px solid var(--blue-bright); outline-offset: 2px; }
+  .audit-form textarea::placeholder { color: #6a7580; }
+  .audit-controls { display: flex; align-items: center; gap: 14px; margin-top: 18px; flex-wrap: wrap; }
+  .audit-hint { font-size: 13px; color: #7d8891; }
+  #auditBtn {
+    background: var(--green-bright); color: #0a1310;
+    border: none; border-radius: 8px; padding: 13px 24px;
+    font-size: 15px; font-weight: 500; cursor: pointer; font-family: 'Inter';
+  }
+  #auditBtn:disabled { opacity: 0.55; cursor: default; }
+  #stopBtn {
+    background: transparent; border: 1px solid var(--line-dark); color: #b7c0c8;
+    border-radius: 8px; padding: 13px 20px; font-size: 14px; cursor: pointer; display: none; font-family: 'Inter';
+  }
+  #auditResult { margin-top: 26px; }
+  .audit-card {
+    background: #0d1319; border: 1px solid var(--line-dark); border-radius: 12px;
+    padding: 26px 28px; font-size: 15.5px; line-height: 1.65; color: #e7ebe9;
+  }
+  .audit-card h4 { font-family: 'Poppins'; font-size: 16px; color: var(--green-bright); margin: 18px 0 8px; }
+  .audit-card h4:first-child { margin-top: 0; }
+  .audit-card ul { margin: 6px 0 0; padding-left: 20px; }
+  .audit-card li { margin-bottom: 8px; }
+  .audit-card p { margin-bottom: 10px; }
+  .audit-status { font-size: 14.5px; color: #8f9aa3; display: flex; align-items: center; gap: 8px; }
+  .dot-flicker { width: 6px; height: 6px; border-radius: 50%; background: var(--green-bright); animation: flick 1s infinite ease-in-out; }
+  @keyframes flick { 0%,100% { opacity: .25; } 50% { opacity: 1; } }
+  .audit-note { margin-top: 22px; font-size: 13px; color: #7d8891; }
+  .audit-fallback { display: none; margin-top: 22px; padding: 18px 20px; border: 1px solid var(--line-dark); border-radius: 10px; font-size: 14.5px; color: #b7c0c8; }
+  .audit-fallback a { color: var(--green-bright); }
+
+  /* ---------- footer ---------- */
+  footer { background: var(--navy); color: #8f9aa3; border-top: 1px solid var(--line-dark); padding: 44px 0; }
+  .footer-row { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; }
+  .footer-brand { display: flex; align-items: center; gap: 10px; }
+  .footer-brand .brand-word { color: var(--white); font-size: 16px; }
+  .footer-links { display: flex; gap: 26px; font-size: 14px; }
+  .footer-links a { text-decoration: none; color: #8f9aa3; }
+  .footer-links a:hover { color: var(--white); }
+  .footer-copy { font-size: 13px; margin-top: 26px; color: #5c6670; }
+
+  ::selection { background: var(--green-bright); color: #0a1310; }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-row">
+    <a class="brand" href="#top">
+      <svg width="30" height="30" viewBox="0 0 60 60" aria-hidden="true">
+        <path d="M 24 12 A 18 18 0 1 1 12 24" fill="none" stroke="#1f9d80" stroke-width="6" stroke-linecap="round"/>
+        <path d="M 36 48 A 18 18 0 1 1 48 36" fill="none" stroke="#3b6fd4" stroke-width="6" stroke-linecap="round"/>
+        <path d="M 17 9 L 27 12 L 20 20 Z" fill="#1f9d80"/>
+        <path d="M 43 51 L 33 48 L 40 40 Z" fill="#3b6fd4"/>
+      </svg>
+      <span class="brand-word">Loopwise</span>
+    </a>
+    <div class="nav-links">
+      <a href="#services">Services</a>
+      <a href="#process">How it works</a>
+      <a href="#audit">Free audit</a>
+      <a href="contact.html">Contact</a>
+    </div>
+    <a class="nav-cta" href="#audit">Get free audit</a>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <div class="wrap hero-grid">
+    <div>
+      <div class="eyebrow-line"><span class="eyebrow-dot"></span><span class="eyebrow-text">AI automation studio</span></div>
+      <h1>We automate what you cannot.</h1>
+      <p class="hero-sub">Loopwise designs and builds custom AI systems that take over the repetitive work running your business — so your team spends time on what actually needs a person.</p>
+      <div class="hero-ctas">
+        <a class="btn-primary" href="#audit">Get your free AI audit</a>
+        <a class="btn-ghost" href="#process">See how it works</a>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <video class="logo-video" autoplay muted loop playsinline aria-label="Loopwise animated logo">
+        <source src="loopwise-logo.mp4" type="video/mp4">
+      </video>
+    </div>
+  </div>
+</header>
+
+<section id="problem">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="section-label">Where the hours go</div>
+      <h2>The tasks eating your week aren't the ones growing your business.</h2>
+    </div>
+    <div class="compare">
+      <div class="compare-col before">
+        <div class="compare-title">RIGHT NOW</div>
+        <div class="compare-item"><svg class="compare-icon" viewBox="0 0 18 18"><line x1="4" y1="4" x2="14" y2="14" stroke="#9a3f3f" stroke-width="2.4" stroke-linecap="round"/><line x1="14" y1="4" x2="4" y2="14" stroke="#9a3f3f" stroke-width="2.4" stroke-linecap="round"/></svg><span>Someone retypes the same customer answers by hand, every day</span></div>
+        <div class="compare-item"><svg class="compare-icon" viewBox="0 0 18 18"><line x1="4" y1="4" x2="14" y2="14" stroke="#9a3f3f" stroke-width="2.4" stroke-linecap="round"/><line x1="14" y1="4" x2="4" y2="14" stroke="#9a3f3f" stroke-width="2.4" stroke-linecap="round"/></svg><span>Leads sit in an inbox until someone remembers to follow up</span></div>
+        <div class="compare-item"><svg class="compare-icon" viewBox="0 0 18 18"><line x1="4" y1="4" x2="14" y2="14" stroke="#9a3f3f" stroke-width="2.4" stroke-linecap="round"/><line x1="14" y1="4" x2="4" y2="14" stroke="#9a3f3f" stroke-width="2.4" stroke-linecap="round"/></svg><span>Data gets copied between spreadsheets, forms, and tools by hand</span></div>
+        <div class="compare-item"><svg class="compare-icon" viewBox="0 0 18 18"><line x1="4" y1="4" x2="14" y2="14" stroke="#9a3f3f" stroke-width="2.4" stroke-linecap="round"/><line x1="14" y1="4" x2="4" y2="14" stroke="#9a3f3f" stroke-width="2.4" stroke-linecap="round"/></svg><span>Reports get built manually before every meeting</span></div>
+      </div>
+      <div class="compare-col after">
+        <div class="compare-title">WITH LOOPWISE</div>
+        <div class="compare-item"><svg class="compare-icon" viewBox="0 0 18 18"><polyline points="3,9 7,13 15,4" fill="none" stroke="#46d6b0" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span>An AI system answers instantly, in your voice, around the clock</span></div>
+        <div class="compare-item"><svg class="compare-icon" viewBox="0 0 18 18"><polyline points="3,9 7,13 15,4" fill="none" stroke="#46d6b0" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Every lead is qualified and followed up within minutes</span></div>
+        <div class="compare-item"><svg class="compare-icon" viewBox="0 0 18 18"><polyline points="3,9 7,13 15,4" fill="none" stroke="#46d6b0" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Your tools stay in sync automatically, with no manual entry</span></div>
+        <div class="compare-item"><svg class="compare-icon" viewBox="0 0 18 18"><polyline points="3,9 7,13 15,4" fill="none" stroke="#46d6b0" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Reports build themselves and land in your inbox on schedule</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="services">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="section-label">What we build</div>
+      <h2>Three places AI automation pays for itself fastest.</h2>
+      <p>Every business is different, so every system we build is custom — but most engagements start in one of these areas.</p>
+    </div>
+    <div class="services">
+      <div class="service">
+        <svg class="service-icon" viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="17" fill="none" stroke="#1f9d80" stroke-width="2.5"/><path d="M13 22 L18 27 L28 15" fill="none" stroke="#1f9d80" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <h3>Customer response</h3>
+        <p>An AI system that answers common questions, books time, and routes anything real to your team — instantly, at any hour.</p>
+      </div>
+      <div class="service">
+        <svg class="service-icon" viewBox="0 0 40 40" aria-hidden="true"><path d="M8 28 L16 16 L24 22 L32 10" fill="none" stroke="#3b6fd4" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="32" cy="10" r="3" fill="#3b6fd4"/></svg>
+        <h3>Lead & sales follow-up</h3>
+        <p>Every new lead gets qualified, enriched, and followed up automatically — so nothing sits untouched in an inbox.</p>
+      </div>
+      <div class="service">
+        <svg class="service-icon" viewBox="0 0 40 40" aria-hidden="true"><rect x="7" y="9" width="26" height="22" rx="3" fill="none" stroke="#46d6b0" stroke-width="2.5"/><path d="M12 17 h16 M12 23 h10" stroke="#46d6b0" stroke-width="2.5" stroke-linecap="round"/></svg>
+        <h3>Internal operations</h3>
+        <p>Data entry, reporting, and syncing between the tools you already use — handled by a system that never forgets a step.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="process">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="section-label">How it works</div>
+      <h2>From a five-minute form to a working system.</h2>
+    </div>
+    <div class="process">
+      <div class="process-step">
+        <div class="process-num">1</div>
+        <h3>Tell us about your business</h3>
+        <p>Share your site or describe what you do below — takes about a minute.</p>
+      </div>
+      <div class="process-step">
+        <div class="process-num">2</div>
+        <h3>Get your free audit</h3>
+        <p>Our AI reviews what you've shared and identifies exactly where automation would save the most time.</p>
+      </div>
+      <div class="process-step">
+        <div class="process-num">3</div>
+        <h3>We build it</h3>
+        <p>If it's a fit, we design and ship the system — live in days, not months.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="audit" class="audit-section">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="section-label">Free automation audit</div>
+      <h2>Tell us about your business. Get an audit in seconds.</h2>
+      <p>Paste your website link or describe what your business does — our AI will point out where automation would save you the most time, free of charge.</p>
+    </div>
+
+    <div class="audit-panel">
+      <div class="audit-form">
+        <label for="leadName">Your name</label>
+        <input type="text" id="leadName" class="lead-input" placeholder="Your name">
+        <label for="leadEmail">Your email — we'll send the full build plan here</label>
+        <input type="email" id="leadEmail" class="lead-input" placeholder="example@yourbusiness.com">
+        <label for="bizInput">Your website link, or a short description of your business</label>
+        <textarea id="bizInput" placeholder="e.g. www.yourbusiness.com — or: We're a 6-person landscaping company. Most leads come in through Instagram DMs and a contact form, and we currently track jobs in a shared spreadsheet."></textarea>
+        <div class="audit-controls">
+          <button id="auditBtn">Generate my free audit</button>
+          <button id="stopBtn">Stop</button>
+          <span class="audit-hint">Free. Takes about 20 seconds.</span>
+        </div>
+      </div>
+
+      <div id="auditResult"></div>
+      <div id="auditCta" class="audit-cta" style="display:none;">
+        <a id="auditCtaLink" class="btn-primary" href="contact.html" style="margin-top:8px;">Get this built — talk to us</a>
+      </div>
+      <div class="audit-note">This tool is powered by AI and runs on our server.</div>
+      <div id="auditFallback" class="audit-fallback">
+        The live audit tool isn't available right now. In the meantime, <a href="#audit">message us directly</a> with your business link and we'll send a free audit by hand within a day.
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-row">
+      <div class="footer-brand">
+        <svg width="24" height="24" viewBox="0 0 60 60" aria-hidden="true">
+          <path d="M 24 12 A 18 18 0 1 1 12 24" fill="none" stroke="#46d6b0" stroke-width="6" stroke-linecap="round"/>
+          <path d="M 36 48 A 18 18 0 1 1 48 36" fill="none" stroke="#6e9cf6" stroke-width="6" stroke-linecap="round"/>
+        </svg>
+        <span class="brand-word">Loopwise</span>
+      </div>
+      <div class="footer-links">
+        <a href="#services">Services</a>
+        <a href="#process">How it works</a>
+        <a href="#audit">Free audit</a>
+        <a href="contact.html">Contact</a>
+        <a href="https://instagram.com/loopwise.lb" target="_blank" rel="noopener">Instagram</a>
+      </div>
+    </div>
+    <div class="footer-copy">© <span id="year"></span> Loopwise. AI systems for businesses that want their time back.</div>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  (function () {
+    const btn = document.getElementById('auditBtn');
+    const stopBtn = document.getElementById('stopBtn');
+    const input = document.getElementById('bizInput');
+    const nameInput = document.getElementById('leadName');
+    const emailInput = document.getElementById('leadEmail');
+    const resultEl = document.getElementById('auditResult');
+    const fallbackEl = document.getElementById('auditFallback');
+    const ctaEl = document.getElementById('auditCta');
+    const ctaLink = document.getElementById('auditCtaLink');
+    let controller = null;
+
+    function isValidEmail(v) {
+      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
+    }
+
+    async function saveLead(name, email, business) {
+      try {
+        await fetch('/api/lead', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ name, email, business }),
+        });
+      } catch (e) {
+        // Non-fatal — don't block the audit if lead capture fails.
+        console.error('Lead capture failed', e);
+      }
+    }
+
+    const ERROR_COPY = {
+      rate_limited: "You've hit a usage limit — please try again in a few minutes.",
+      empty_completion: 'No audit came back — try adding a bit more detail about your business.',
+      upstream_error: 'Something went wrong on our end — please try again.',
+      invalid_request: 'That input could not be processed — try shortening it.',
+      prompt_too_large: 'That description is too long — try trimming it down.',
+      network_error: 'Could not reach the server — check your connection and try again.',
+    };
+
+    function renderMarkdownish(text) {
+      const lines = text.split('\n');
+      let html = '';
+      let inList = false;
+      for (const raw of lines) {
+        const line = raw.trim();
+        if (!line) { if (inList) { html += '</ul>'; inList = false; } continue; }
+        if (line.startsWith('## ')) {
+          if (inList) { html += '</ul>'; inList = false; }
+          html += `<h4>${escapeHtml(line.slice(3))}</h4>`;
+        } else if (line.startsWith('- ')) {
+          if (!inList) { html += '<ul>'; inList = true; }
+          html += `<li>${inlineFormat(escapeHtml(line.slice(2)))}</li>`;
+        } else {
+          if (inList) { html += '</ul>'; inList = false; }
+          html += `<p>${inlineFormat(escapeHtml(line))}</p>`;
+        }
+      }
+      if (inList) html += '</ul>';
+      return html;
+    }
+    function escapeHtml(s) {
+      return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    }
+    function inlineFormat(s) {
+      return s.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+    }
+
+    function setIdle() {
+      btn.disabled = false;
+      btn.textContent = 'Generate my free audit';
+      stopBtn.style.display = 'none';
+    }
+    function setBusy() {
+      btn.disabled = true;
+      btn.textContent = 'Generating…';
+      stopBtn.style.display = 'inline-flex';
+    }
+
+    stopBtn.addEventListener('click', () => {
+      if (controller) controller.abort();
+    });
+
+    btn.addEventListener('click', async () => {
+      const name = nameInput.value.trim();
+      const email = emailInput.value.trim();
+      const biz = input.value.trim();
+
+      if (!name) {
+        nameInput.focus();
+        return;
+      }
+      if (!email || !isValidEmail(email)) {
+        emailInput.focus();
+        return;
+      }
+      if (!biz) {
+        input.focus();
+        return;
+      }
+
+      controller = new AbortController();
+      setBusy();
+      ctaEl.style.display = 'none';
+      resultEl.innerHTML = '<div class="audit-status"><span class="dot-flicker"></span> Thinking…</div>';
+
+      saveLead(name, email, biz);
+
+      try {
+        const res = await fetch('/api/audit', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ business: biz }),
+          signal: controller.signal,
+        });
+
+        const data = await res.json().catch(() => ({}));
+
+        if (!res.ok) {
+          const err = new Error(data.error || 'upstream_error');
+          err.code = data.code || 'upstream_error';
+          throw err;
+        }
+
+        if (!data.text) {
+          throw Object.assign(new Error('empty'), { code: 'empty_completion' });
+        }
+
+        resultEl.innerHTML = `<div class="audit-card">${renderMarkdownish(data.text)}</div>`;
+        ctaLink.href = `contact.html?name=${encodeURIComponent(name)}`;
+        ctaEl.style.display = 'block';
+      } catch (e) {
+        if (e.name === 'AbortError') {
+          resultEl.innerHTML = '';
+        } else {
+          const msg = ERROR_COPY[e.code] || 'Something went wrong generating your audit — please try again.';
+          resultEl.innerHTML = `<div class="audit-status">${msg}</div>`;
+        }
+      } finally {
+        setIdle();
+        controller = null;
+      }
+    });
+  })();
+</script>
+
+</body>
+</html>
