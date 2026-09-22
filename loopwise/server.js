@@ -1,19 +1,19 @@
 // Loopwise backend — serves the static site and proxies AI audit
-// requests to OpenAI so the API key never touches the browser.
+// requests to Groq so the API key never touches the browser.
 
 const express = require('express');
 const path = require('path');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
-const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
-const OPENAI_MODEL = process.env.OPENAI_MODEL || 'gpt-4o-mini';
+const GROQ_API_KEY = process.env.GROQ_API_KEY;
+const GROQ_MODEL = process.env.GROQ_MODEL || 'llama-3.3-70b-versatile';
 
 app.use(express.json({ limit: '100kb' }));
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Very small in-memory rate limiter (per IP) so a stray script kiddie
-// can't burn through your OpenAI credits. Resets on server restart —
+// can't burn through your Groq credits. Resets on server restart —
 // fine for a small marketing-site tool. For real production traffic,
 // swap this for a proper store (Redis, etc).
 const hits = new Map(); // ip -> [timestamps]
@@ -30,8 +30,8 @@ function rateLimited(ip) {
 
 app.post('/api/audit', async (req, res) => {
   try {
-    if (!OPENAI_API_KEY) {
-      return res.status(500).json({ error: 'Server is missing OPENAI_API_KEY.', code: 'upstream_error' });
+    if (!GROQ_API_KEY) {
+      return res.status(500).json({ error: 'Server is missing GROQ_API_KEY.', code: 'upstream_error' });
     }
 
     const ip = req.headers['x-forwarded-for']?.split(',')[0]?.trim() || req.socket.remoteAddress || 'unknown';
@@ -69,14 +69,14 @@ One concrete, low-effort action they could take this week.
 
 Keep the whole answer under 200 words. Do not mention pricing or ask questions back. Do not invent specific facts (like named tools or numbers) you weren't given. Sign off with "— The Loopwise Team" on its own line at the end.`;
 
-    const upstream = await fetch('https://api.openai.com/v1/chat/completions', {
+    const upstream = await fetch('https://api.groq.com/openai/v1/chat/completions', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${OPENAI_API_KEY}`,
+        Authorization: `Bearer ${GROQ_API_KEY}`,
       },
       body: JSON.stringify({
-        model: OPENAI_MODEL,
+        model: GROQ_MODEL,
         messages: [{ role: 'user', content: prompt }],
         max_tokens: 500,
         temperature: 0.7,
@@ -85,7 +85,7 @@ Keep the whole answer under 200 words. Do not mention pricing or ask questions b
 
     if (!upstream.ok) {
       const errBody = await upstream.json().catch(() => ({}));
-      console.error('OpenAI error:', upstream.status, errBody);
+      console.error('Groq error:', upstream.status, errBody);
       const code = upstream.status === 429 ? 'rate_limited' : 'upstream_error';
       return res.status(502).json({ error: errBody.error?.message || 'Upstream error', code });
     }
